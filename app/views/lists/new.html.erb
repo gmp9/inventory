@@ -1,0 +1,11 @@
+<% content_for :title do %>List<% end %>
+<h3>List</h3>
+<div class="form">
+    <%= simple_form_for @list do |f| %>
+      <%= f.error_notification %>
+      <%= f.input :item %>
+      <%= f.input :quantity %>
+      <%= f.button :submit, 'Submit', class: 'submit' %>
+    <% end %>
+    <%= link_to 'Back', lists_path %>
+</div>
