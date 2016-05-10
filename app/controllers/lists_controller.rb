@@ -1,5 +1,6 @@
 class ListsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :auth_only
   
   def index
     @list = List.all
@@ -48,6 +49,16 @@ class ListsController < ApplicationController
   
   private
   
+  def auth_only
+    @user = User.find(1)
+    unless current_user.admin?
+     #unless user #1(admin) is the current user, access is denied
+     unless @user == current_user
+      redirect_to :back, :alert => "Access denied."
+     end
+    end
+  end
+
   def secure_params
     params.require(:list).permit(:item, :quantity)
   end
